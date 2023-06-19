@@ -69,7 +69,7 @@ docker-multiarch-mikrotik-build-devel:
   parallel: 3 
   
 docker-multiarch-mikrotik-build-devel-version:
-  stage: docker-multiarch-build-version
+  stage: docker-multiarch-build-devel-version
   needs: [docker-local-mikrotik-build]
   image: docker:24.0.2-dind
   tags:
@@ -96,7 +96,7 @@ docker-multiarch-mikrotik-build-devel-version:
   parallel: 3
 
 docker-multiarch-mikrotik-build-devel-version-latest:
-  stage: docker-multiarch-build-latest
+  stage: docker-multiarch-build-devel-version-latest
   needs: [docker-local-mikrotik-build]
   image: docker:24.0.2-dind
   tags:
