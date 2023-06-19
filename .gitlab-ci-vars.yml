@@ -1,0 +1,6 @@
+# Includes .gitlab-ci.yml-vars
+
+variables:
+  CI_COMMIT_VERSION: 'v3.18.0'
+  CI_PRODUCTION_LATEST_SWITCH: 'true' 
+  CI_PRODUCTION_VERSION_SWITCH: 'true'
