@@ -31,15 +31,15 @@ docker-local-mikrotik-build:
     - docker buildx build --no-cache --platform linux/amd64 --output=type=docker -t $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL .
     - docker buildx build --no-cache --platform linux/arm64 --output=type=docker -t $CI_REGISTRY_IMAGE-arm64:$CI_COMMIT_DEVEL .
     - docker buildx build --no-cache --platform linux/arm --output=type=docker -t $CI_REGISTRY_IMAGE-arm:$CI_COMMIT_DEVEL .
-    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-arm64.tar.gz
-    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-amd64.tar.gz
-    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-arm.tar.gz
+    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-arm64.tar.gz
+    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-amd64.tar.gz
+    - docker save $CI_REGISTRY_IMAGE-amd64:$CI_COMMIT_DEVEL | gzip > $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-arm.tar.gz
   parallel: 3
   artifacts:
     paths:
-            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-amd64.tar.gz
-            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-arm64.tar.gz
-            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-$CI_PIPELINE_CREATED_AT-arm.tar.gz
+            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-amd64.tar.gz
+            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-arm64.tar.gz
+            - $CI_REGISTRY_IMAGE-$CI_COMMIT_DEVEL-arm.tar.gz
 
 docker-multiarch-mikrotik-build-devel:  
   stage: docker-multiarch-build-devel
@@ -66,7 +66,6 @@ docker-multiarch-mikrotik-build-devel:
   rules:
     - if: ($CI_PRODUCTION_VERSION_SWITCH != "true" && $CI_PRODUCTION_LATEST_SWITCH != "true")
   when: always
-  parallel: 3 
   
 docker-multiarch-mikrotik-build-devel-version:
   stage: docker-multiarch-build-devel-version
@@ -93,7 +92,6 @@ docker-multiarch-mikrotik-build-devel-version:
   rules:
     - if: ($CI_PRODUCTION_VERSION_SWITCH == "true" && $CI_PRODUCTION_LATEST_SWITCH != "true")      
       when: always
-  parallel: 3
 
 docker-multiarch-mikrotik-build-devel-version-latest:
   stage: docker-multiarch-build-devel-version-latest
@@ -120,4 +118,3 @@ docker-multiarch-mikrotik-build-devel-version-latest:
   rules:
     - if: ($CI_PRODUCTION_LATEST_SWITCH == "true" &&  $CI_PRODUCTION_VERSION_SWITCH == "true")   
       when: always 
-  parallel: 3
