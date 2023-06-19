@@ -4,6 +4,8 @@ stages:
   - docker-multiarch-build-version
   - docker-multiarch-build-latest
 
+include:  /.gitlab-ci-vars.yml  
+
 variables:
   RUNNER_TAGS: 'rhel8,docker,homenet,lesnet'
 
