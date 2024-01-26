@@ -15,7 +15,7 @@ ARG VCS_REF
 LABEL maintainer="DL7DET <detlef@lampart.de>" \
     org.label-schema.url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81" \
     org.label-schema.version=${APP_VERSION} \
-    org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.build-date=$now \
     org.label-schema.version_alpine=${ALPINE_VERSION} \
 
     org.label-schema.vcs-url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81.git" \
