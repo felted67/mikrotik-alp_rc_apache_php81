@@ -11,6 +11,25 @@ RUN echo 'https://ftp.halifax.rwth-aachen.de/alpine/v3.19/main/' >> /etc/apk/rep
 
 FROM base AS openrc
 
+# Preset Metadata parameters
+ARG BUILD_DATE
+ARG APP_VERSION=${CI_IMAGE_VERSION}
+ARG ALPINE_VERSION=3.19.0
+ARG VCS_REF
+
+# Set Metadata for docker-image
+LABEL maintainer="DL7DET <detlef@lampart.de>" \
+    org.label-schema.url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81" \
+    org.label-schema.version=${APP_VERSION} \
+    org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.version_alpine=${ALPINE_VERSION} \
+
+    org.label-schema.vcs-url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81.git" \
+    org.label-schema.vcs-ref=${VCS_REF} \
+    org.label-schema.docker.dockerfile="/Dockerfile" \
+    org.label-schema.description="alpine-linux-rc-apache2-php81 mikrotik-docker-image" \
+    org.label-schema.schema-version="1.0"
+
 RUN apk add --no-cache openrc \
     # Disable getty's
     && sed -i 's/^\(tty\d\:\:\)/#\1/g' /etc/inittab \
