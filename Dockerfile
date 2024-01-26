@@ -6,7 +6,7 @@
 FROM --platform=$TARGETPLATFORM alpine:3.19.0 AS base
 
 # Preset Metadata parameters
-ARG BUILD_DATE=${BUILD}
+ARG BUILD
 ARG APP_VERSION=${CI_IMAGE_VERSION}
 ARG DEVEL_VERSION=${CI_DEVEL_VERSION}
 ARG ALPINE_VERSION=${CI_LINUX_VERSION}
@@ -15,8 +15,8 @@ ARG ALPINE_VERSION=${CI_LINUX_VERSION}
 LABEL maintainer="DL7DET <detlef@lampart.de>" \
     org.label-schema.url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81" \
     org.label-schema.version=${APP_VERSION} \
-    org.label-schema.version_devel=${DEVEL_VERSION} \
-    org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.version-devel=${DEVEL_VERSION} \
+    org.label-schema.build-date=${BUILD} \
     org.label-schema.version_alpine=${ALPINE_VERSION} \
     org.label-schema.vcs-url="https://cb3.lampart-web.de/internal/docker-projects/mikrotik-docker-images/mikrotik-alp_rc_apache_php81.git" \
     org.label-schema.vcs-ref=${VCS_REF} \
