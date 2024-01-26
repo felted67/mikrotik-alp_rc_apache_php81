@@ -3,8 +3,10 @@
 # (C) 2023 DL7DET
 #
 
+FROM --platform=$TARGETPLATFORM alpine:3.19.0 AS base
+
 # Preset Metadata parameters
-ARG BUILD_DATE
+ARG now
 ARG APP_VERSION=${CI_IMAGE_VERSION}
 ARG ALPINE_VERSION=3.19.0
 ARG VCS_REF
@@ -21,8 +23,6 @@ LABEL maintainer="DL7DET <detlef@lampart.de>" \
     org.label-schema.docker.dockerfile="/Dockerfile" \
     org.label-schema.description="alpine-linux-rc-apache2-php81 mikrotik-docker-image" \
     org.label-schema.schema-version="1.0"
-
-FROM --platform=$TARGETPLATFORM alpine:3.19.0 AS base
 
 RUN echo 'https://ftp.halifax.rwth-aachen.de/alpine/v3.19/main/' >> /etc/apk/repositories \
     && echo 'https://ftp.halifax.rwth-aachen.de/alpine/v3.19/community' >> /etc/apk/repositories \
