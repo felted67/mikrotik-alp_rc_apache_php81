@@ -3,7 +3,7 @@
 # (C) 2023 DL7DET
 #
 
-FROM --platform=$TARGETPLATFORM alpine:3.19.0 AS base
+FROM --platform=$TARGETPLATFORM alpine:3.19.1 AS base
 
 # Preset Metadata parameters
 ARG BUILD
@@ -69,7 +69,10 @@ RUN apk update && \
 RUN apk update && \
     apk --no-cache add apache2 apache2-proxy apache-mod-fcgid tzdata
 
+COPY ./config_files/auto_init /etc/init.d/
+COPY ./config_files/auto_init.sh /sbin/
 COPY ./config_files/first_start.sh /sbin/
+
 COPY ./config_files/php_configure.sh /sbin/
 COPY ./config_files/httpd.new.conf /etc/apache2/
 COPY ./config_files/php-fpm.new.conf /etc/php81/
@@ -79,7 +82,12 @@ COPY ./config_files/index.html /root/
 COPY ./config_files/index.php /root/
 COPY ./config_files/phpinfo.php /root/
 
+RUN chown root:root /etc/init.d/auto_init && chmod 0755 /etc/init.d/auto_init
 RUN chown root:root /sbin/first_start.sh && chmod 0700 /sbin/first_start.sh
-RUN chown root:root /sbin/php_configure.sh && chmod 0700 /sbin/php_configure.sh
+RUN chown root:root /sbin/auto_init.sh && chmod 0700 /sbin/auto_init.sh
+
+RUN ln -s /etc/init.d/auto_init /etc/runlevels/default/auto_init
+
+EXPOSE 22/tcp
 
 CMD ["/sbin/init"]
