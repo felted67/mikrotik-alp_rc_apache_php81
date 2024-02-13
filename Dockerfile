@@ -1,6 +1,6 @@
 #
 # Dockerfile for alpine-linux-rc-apache2-php81 mikrotik-docker-image
-# (C) 2023 DL7DET
+# (C) 2023-2024 DL7DET
 #
 
 FROM --platform=$TARGETPLATFORM alpine:3.19.1 AS base
