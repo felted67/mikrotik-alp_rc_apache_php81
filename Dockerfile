@@ -31,7 +31,6 @@ RUN echo 'https://ftp.halifax.rwth-aachen.de/alpine/v3.19/main/' >> /etc/apk/rep
 FROM base AS openrc
 
 RUN apk add --no-cache openrc \
-    
     # Disable getty's
     && sed -i 's/^\(tty\d\:\:\)/#\1/g' /etc/inittab \
     && sed -i \
@@ -45,7 +44,6 @@ RUN apk add --no-cache openrc \
         # Define extra dependencies for services
         -e 's/#rc_provide=".*"/rc_provide="loopback net"/g' \
         /etc/rc.conf \
-    
     # Remove unnecessary services
     && rm -f /etc/init.d/hwdrivers \
             /etc/init.d/hwclock \
