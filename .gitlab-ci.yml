@@ -67,9 +67,9 @@ docker-multiarch-mikrotik-build-devel:
   rules:
     - if: ($CI_PRODUCTION_VERSION_SWITCH != "true" && $CI_PRODUCTION_LATEST_SWITCH != "true")
       changes:
-        - Dockerfile
-        - .gitlab-ci-vars.yml
-        - ./config_files/*
+        - $CI_PROJECT_DIR/Dockerfile
+        - $CI_PROJECT_DIR/.gitlab-ci-vars.yml
+        - $CI_PROJECT_DIR/config_files/*
   when: always
 
 docker-multiarch-mikrotik-build-devel-version:
@@ -97,10 +97,10 @@ docker-multiarch-mikrotik-build-devel-version:
     - docker buildx build --no-cache --build-arg BUILD=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --push --platform linux/arm64,linux/arm,linux/amd64 -t "$CI_REGISTRY_USER/$CI_REGISTRY_IMAGE:$CI_COMMIT_DEVEL" -t "$CI_REGISTRY_USER/$CI_REGISTRY_IMAGE:$CI_COMMIT_VERSION" .    
   rules:
     - if: ($CI_PRODUCTION_VERSION_SWITCH == "true" && $CI_PRODUCTION_LATEST_SWITCH != "true")  
-      changes:
-        - Dockerfile
-        - .gitlab-ci-vars.yml
-        - ./config_files/*        
+      changes:  
+        - $CI_PROJECT_DIR/Dockerfile
+        - $CI_PROJECT_DIR/.gitlab-ci-vars.yml
+        - $CI_PROJECT_DIR/config_files/*    
   when: always
 
 docker-multiarch-mikrotik-build-devel-version-latest:
@@ -129,7 +129,7 @@ docker-multiarch-mikrotik-build-devel-version-latest:
   rules:
     - if: ($CI_PRODUCTION_LATEST_SWITCH == "true" &&  $CI_PRODUCTION_VERSION_SWITCH == "true")   
       changes:
-        - Dockerfile
-        - .gitlab-ci-vars.yml
-        - ./config_files/*
+        - $CI_PROJECT_DIR/Dockerfile
+        - $CI_PROJECT_DIR/.gitlab-ci-vars.yml
+        - $CI_PROJECT_DIR/config_files/*
   when: always
